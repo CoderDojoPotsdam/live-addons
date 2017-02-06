@@ -51,7 +51,7 @@ create_example z-Scratch2Installer.squashfs \
                examples/CoderDojoOS-special.sh software/Scratch2Installer
 #  examples/CoderDojoOS-special.sh software/hamstermodell
 
-live-addon-maker/merge-addons.sh z-coderdojo.squashfs $files
+sudo live-addon-maker/merge-addons.sh z-coderdojo.squashfs $files
 
 
 
