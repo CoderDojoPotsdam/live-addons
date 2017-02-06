@@ -23,7 +23,7 @@ echo "Looking for ubuntu at $url"
   wget -c "http://de.releases.ubuntu.com/16.10/ubuntu-16.10-desktop-amd64.iso"
 )
 
-iso_hash="`sha256sum test.sh | grep -oE '^\S+'`"
+iso_hash="`sha256sum live-addon-maker/*.iso | grep -oE '^\S+'`"
 
 [ -z "$expected_hash" ] || [ "$expected_hash" == "$iso_hash" ] || {
   echo "SHA256 hashes do not match."
