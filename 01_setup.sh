@@ -7,7 +7,7 @@ sudo apt-get -y -qq install git
 iso_name="ubuntu-mate-16.04.1-desktop-amd64.iso"
 iso_url="http://cdimage.ubuntu.com/ubuntu-mate/releases/16.04.1/release/$iso_name"
 expected_hash="d17ad97753c756513e1c3add89ce6fa2f0db8c2fba690408a1e5eabc8e01311b"
-addon_maker_url="https://github.com/CoderDojoPotsdam/live-addons.git"
+addon_maker_url="https://github.com/CodersOS/live-addon-maker.git"
 
 echo "Checking live-addon-maker"
 if [ -e "live-addon-maker" ]; then
@@ -21,6 +21,12 @@ else
     exit 1
   }
 fi
+
+[ -e "live-addon-maker" ] || {
+  echo "expected live-addon-maker directory"
+  echo `ls`
+  exit 1
+}
 
 (
   echo "Downloading iso"
