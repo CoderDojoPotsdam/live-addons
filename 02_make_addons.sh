@@ -43,8 +43,8 @@ create_example examples/z-arduino-1.8.1-linux64.squashfs \
                examples/arduino-1.8.1-linux64.sh
 create_example examples/z-flash.squashfs \
                examples/flash.sh
-create_example z-app-inventor-starter.squashfs \
-               examples/CoderDojoOS-special.sh software/app-inventor-starter
+#create_example z-app-inventor-starter.squashfs \
+#               examples/CoderDojoOS-special.sh software/app-inventor-starter
 create_example z-PyCharm.squashfs \
                examples/CoderDojoOS-special.sh software/PyCharm z-PyCharm.squashfs
 create_example z-Scratch2Installer.squashfs \
