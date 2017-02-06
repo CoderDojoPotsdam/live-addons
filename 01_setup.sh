@@ -15,7 +15,7 @@ if [ -d "live-addon-maker" ]; then
     git pull
   )
 else
-  git clone --depth=1 "" || {
+  git clone --depth=1 "$addon_maker_url" || {
     echo "Could not clone live-addon-maker"
     exit 1
   }
