@@ -2,8 +2,8 @@
 
 cd "`dirname \"$0\"`"
 
-iso_name="`ls *.iso | grep -v coderdojo`"
-new_iso="`echo \"$iso_name\" | sed s/desktop/coderdojo/`"
+iso_name="`ls live-addon-maker/*.iso | grep -v coderdojo`"
+new_iso="`basename \"$iso_name\" | sed s/desktop/coderdojo/`"
 if [ "$new_iso" == "$iso_name" ]; then
   new_iso="${iso_name%.*}-coderdojo.iso"
 fi

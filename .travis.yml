@@ -10,7 +10,7 @@ script:
 
 before_deploy:
 - cat z-coderdojo.squashfs > /home/travis/z-coderdojo.squashfs
-- iso_file="`ls *.iso | grep -v coderdojo`"
+- iso_file="`ls *.iso | grep coderdojo`"
 - cat "$iso_file" > "/home/travis/$iso_file"
 
 deploy:
