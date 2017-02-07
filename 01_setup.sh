@@ -49,8 +49,6 @@ if [ -n "$expected_hash" ]; then
 fi
 
 echo "Deleting examples"
-(
-  cd "live-addon-maker/examples"
-  rm -f *.squashfs
-)
+rm -f live-addon-maker/examples/*.squashfs live-addon-maker/*.squashfs
+
 
