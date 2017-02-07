@@ -23,9 +23,7 @@ create_example() {
       "$@"
     )
   fi
-  [ -f "$file" ] || \
-    error "File $file not found for command $@"
-  files="$file $files"
+  add_file "$file" "$@"
 }
 
 files=""
@@ -33,6 +31,14 @@ files=""
 
 [ -d "live-addon-maker" ] || \
   error "Can not find live-addon-maker directory. Run 01_setup.sh first!"
+
+add_file() {
+  local file="$1"
+  shift
+  [ -f "$file" ] || \
+    error "File $file not found for command $@"
+  files="$file $files"
+}
 
 
 create_example examples/z-idle-python3.5.squashfs \
@@ -50,6 +56,16 @@ create_example z-PyCharm.squashfs \
 create_example z-Scratch2Installer.squashfs \
                examples/CoderDojoOS-special.sh software/Scratch2Installer
 #  examples/CoderDojoOS-special.sh software/hamstermodell
+
+for script in addon-*.sh; do
+  name="${script:7}"
+  name="${name%.sh}"
+  addon="z-$name.squashfs"
+  log "Executing $script"
+  log "      for $file"
+  "$script"
+  add_file "$addon" "$script"
+done
 
 sudo live-addon-maker/merge-addons.sh z-coderdojo.squashfs $files
 

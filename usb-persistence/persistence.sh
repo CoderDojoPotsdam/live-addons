@@ -9,8 +9,28 @@ scripts_folder="`dirname \"$0\"`/startup"
 
 echo "Looking for $dev"
 if ! [ -e "$dev" ]; then
-  echo "No $dev found. Exiting."
-  exit 1
+  echo "No $dev found. Trying to create the dev."
+  (
+    # see http://tldp.org/HOWTO/Partition/fdisk_partitioning.html
+    # new partition
+    echo "n"
+    # primary partition
+    echo "p"
+    # partition number
+    echo "${dev: -1}"
+    # partition start
+    echo
+    # partition stop
+    echo
+    # write the partition
+    echo "w"
+  ) | fdisk "${dev:: -1}"
+  partprobe
+  if ! [ -e "$dev" ]; then
+    echo "Failed to create $dev"
+    echo "Exiting."
+    exit 5
+  fi
 fi
 
 echo "Creating $dir to mount $dev"

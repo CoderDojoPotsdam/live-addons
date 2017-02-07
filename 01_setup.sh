@@ -4,10 +4,14 @@ cd "`dirname \"$0\"`"
 
 sudo apt-get -y -qq install git
 
-iso_name="ubuntu-16.10-desktop-amd64.iso"
-iso_url="http://de.releases.ubuntu.com/16.10/$iso_name"
+# settings
+iso_url="http://de.releases.ubuntu.com/16.10/ubuntu-16.10-desktop-amd64.iso"
 expected_hash="4405c37d61b5cac6c89eaf379c035058ed7db8594abd209337276c7c4556787e"
 addon_maker_url="https://github.com/CodersOS/live-addon-maker.git"
+
+# computed settings
+iso_name="`basename \"$iso_url\"`"
+iso_file="live-addon-maker/$iso_name"
 
 echo "Checking live-addon-maker"
 if [ -e "live-addon-maker" ]; then
@@ -36,7 +40,7 @@ fi
 
 if [ -n "$expected_hash" ]; then
   echo "Checking sha sum"
-  sha_output="`sha256sum live-addon-maker/$iso_name`"
+  sha_output="`sha256sum \"$iso_file\"`"
   echo "sha256sum output: $sha_output"
   iso_hash="`echo \"$sha_output\" | grep -oE '^\S+'`"
 
@@ -49,6 +53,7 @@ if [ -n "$expected_hash" ]; then
 fi
 
 echo "Deleting examples"
-rm -f live-addon-maker/examples/*.squashfs live-addon-maker/*.squashfs
+rm -f live-addon-maker/examples/*.squashfs live-addon-maker/*.squashfs *.squashfs
 
-
+rm -f ./link.iso
+ln -s -T "$iso_file" "link.iso"
