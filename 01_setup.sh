@@ -4,9 +4,9 @@ cd "`dirname \"$0\"`"
 
 sudo apt-get -y -qq install git
 
-iso_name="ubuntu-mate-16.04.1-desktop-amd64.iso"
-iso_url="http://cdimage.ubuntu.com/ubuntu-mate/releases/16.04.1/release/$iso_name"
-expected_hash="d17ad97753c756513e1c3add89ce6fa2f0db8c2fba690408a1e5eabc8e01311b"
+iso_name="ubuntu-16.10-desktop-amd64.iso"
+iso_url="http://de.releases.ubuntu.com/16.10/$iso_name"
+expected_hash="4405c37d61b5cac6c89eaf379c035058ed7db8594abd209337276c7c4556787e"
 addon_maker_url="https://github.com/CodersOS/live-addon-maker.git"
 
 echo "Checking live-addon-maker"
