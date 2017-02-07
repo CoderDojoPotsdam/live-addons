@@ -61,9 +61,13 @@ for script in addon-*.sh; do
   name="${script:7}"
   name="${name%.sh}"
   addon="z-$name.squashfs"
-  log "Executing $script"
-  log "      for $file"
-  "$script"
+  if [ -e "$addon" ]; then
+    echo "Addon $addon exists"
+  then
+    log "Executing $script"
+    log "      for $file"
+    "$script"
+  fi
   add_file "$addon" "$script"
 done
 
