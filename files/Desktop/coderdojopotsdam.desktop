@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=CoderDojo Potsdam
+Comment=Webseite öffnen
+Exec=firefox https://coderdojopotsdam.github.io
+Icon=/opt/icons/logo-512.png
+Terminal=false
+Type=Application
+Categories=Development;
+StartupNotify=true
+NoDisplay=false
