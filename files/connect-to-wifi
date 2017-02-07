@@ -1,0 +1,26 @@
+#!/bin/bash
+
+wifi="$1"
+pw="$2"
+
+minutes="2"
+connected=false
+
+echo "Trying to connect for ${minutes}min"
+for i in 1 2 3 4 5 6 7 8 9 10; do
+  sleep "$(( minutes * 6 ))"
+  echo
+  echo "Connecting to $wifi"
+  if nmcli d wifi connect "$wifi" password "$pw"; then
+    echo "Connected!"
+    connected=true
+  else
+    echo "Could not connect."
+  fi
+done
+
+if [ "$connected" == "true" ]; then
+  echo "Done here."
+else
+  echo "${minutes}min is over. Will not connect any more."
+fi
