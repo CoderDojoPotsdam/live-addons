@@ -45,6 +45,7 @@ addon() {
   name="${script:6}"
   name="${name%.sh}"
   addon="z-$name.squashfs"
+  [ -e "./$script" ] && script="./$script"
   if [ -e "$addon" ]; then
     echo "Addon $addon exists"
   else
