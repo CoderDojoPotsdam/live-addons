@@ -12,5 +12,9 @@ You can [download][releases]
   folder `casper` next to the `filesystem.squashfs` file.
 - the ready made iso image.
 
+## How It Works
 
+We use [live-addon-maker][lam] to create the file you can downloaf from the relases.
+
+[lam]: https://github.com/CodersOS/live-addon-maker
 [releases]: https://github.com/CoderDojoPotsdam/live-addons/releases/latest
