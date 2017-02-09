@@ -8,7 +8,10 @@ cd "`dirname \"$0\"`"
   wget -qc 'https://github.com/CoderDojoPotsdam/organize/raw/master/logo/logo-512.png'
 )
 
-sudo live-addon-maker/make-addon.sh ./link.iso z-desktop.squashfs \
-         -a 'files/Desktop/' '/home/ubuntu/Desktop/' \
+sudo live-addon-maker/make-addon.sh ./link.iso z-desktop.squashfs -H \
+         -a 'files/applications/' '/home/ubuntu/Desktop/' \
+         -a 'files/applications/' '/usr/share/applications/' \
          -a 'files/icons' '/opt/icons' \
-         -s 'clean-desktop' 'sleep 4; rm -f examples.desktop ubiquity.desktop'
+         -a 'files/desktop.sh' '/opt/' \
+         -s 'clean-desktop' '/opt/desktop.sh'
+
