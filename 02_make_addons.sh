@@ -40,6 +40,20 @@ add_file() {
   files="$file $files"
 }
 
+addon() {
+  script="$1"
+  name="${script:6}"
+  name="${name%.sh}"
+  addon="z-$name.squashfs"
+  if [ -e "$addon" ]; then
+    echo "Addon $addon exists"
+  then
+    log "Executing $script"
+    log "      for $file"
+    "$script"
+  fi
+  add_file "$addon" "$script"
+}
 
 create_example examples/z-idle-python3.5.squashfs \
                examples/idle-python3.5.sh
@@ -58,19 +72,10 @@ create_example z-Scratch2Installer.squashfs \
 #  examples/CoderDojoOS-special.sh software/hamstermodell
 
 for script in addon-*.sh; do
-  name="${script:7}"
-  name="${name%.sh}"
-  addon="z-$name.squashfs"
-  if [ -e "$addon" ]; then
-    echo "Addon $addon exists"
-  then
-    log "Executing $script"
-    log "      for $file"
-    "$script"
-  fi
-  add_file "$addon" "$script"
+  addon "$script"
 done
 
+# Final step: squash the addons
 sudo live-addon-maker/merge-addons.sh z-coderdojo.squashfs $files
 
 
