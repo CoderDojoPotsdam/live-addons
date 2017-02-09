@@ -47,7 +47,7 @@ addon() {
   addon="z-$name.squashfs"
   if [ -e "$addon" ]; then
     echo "Addon $addon exists"
-  then
+  else
     log "Executing $script"
     log "      for $file"
     "$script"
