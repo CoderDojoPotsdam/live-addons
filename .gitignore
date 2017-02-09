@@ -1,3 +1,4 @@
 /live-addon-maker
 *.squashfs
 *.iso
+/casper
