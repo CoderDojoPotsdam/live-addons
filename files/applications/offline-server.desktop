@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=CoderDojo Potsdam
+Name=Offline Server
 Comment=Webseite öffnen
 Exec=firefox http://localhost/
 Icon=/opt/icons/offline-server.jpg
