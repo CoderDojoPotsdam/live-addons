@@ -6,11 +6,11 @@ These are the live addons we use for the CoderDojo live ubuntu USB sticks.
 
 ## Download and Install
 
-You can [download][releases]
+You can download from the [releases][releases]
 
-- the file `z-coderdojo.squashfs` and put it into the 
+- the file [z-coderdojo.squashfs](https://niccokunzmann.github.io/download_latest/z-coderdojo.squashfs) and put it into the 
   folder `casper` next to the `filesystem.squashfs` file.
-- the ready made iso image.
+- the [ready made iso image](https://niccokunzmann.github.io/download_latest/ubuntu-16.10-coderdojo-amd64.iso).
 
 ## How It Works
 
