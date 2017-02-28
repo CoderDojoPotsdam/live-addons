@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Lightbot
+Comment=Webseite öffnen
+Exec=firefox /opt/offline-material/web/lightbot/lightbot.com/index.html
+Icon=/opt/offline-material/web/lightbot/lightbot.com/images/icon-152.png
+Terminal=false
+Type=Application
+Categories=Development;
+StartupNotify=true
+NoDisplay=false
