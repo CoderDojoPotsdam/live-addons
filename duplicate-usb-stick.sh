@@ -1,0 +1,1 @@
+files/opt/duplicate-usb-stick.sh

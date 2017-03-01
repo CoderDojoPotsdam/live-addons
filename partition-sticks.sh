@@ -43,27 +43,40 @@ start_sector="$(((io_size + alignment_offset) / physical_block_size))"
 echo "start_sector = $start_sector"
 
 echo "Printing partitions:"
-sudo parted -s "$stick" print
+sudo parted -s "$stick" print || true
 partitions="`sudo parted -s \"$stick\" print|awk '/^ / {print $1}'`"
 echo "partitions: $partitions"
 
-echo "Deleting partitions"
+echo "Deleting partitions" 
 for i in $partitions; do
+  sudo umount "$stick$i" || true
   sudo parted -s "$stick" rm "$i"
 done
 
+part_num="1"
+partition="$stick$part_num"
+
+sudo partprobe || true
+
+echo "Waiting for partition to disappear"
+timeout 1s bash -c "while [ -e \"$partition\" ]; do echo -n .; sleep 0.2; done" || {
+  echo "$partition exists"
+  exit 1
+}
+echo " $partition vanished."
+
+
 echo "Creating partition:"
-sudo parted -s "$stick" mkpart primary "$start_sector"s "$size"
+sudo parted -s "$stick" mkpart primary "$start_sector"s "$size" || true
 
 echo "Rereading the partition table"
 echo "see http://serverfault.com/a/36047"
-sudo partprobe
+sudo partprobe || true
 
-part_num="1"
-partition="$stick$part_num"
 echo "Waiting for partition to appear"
-timeout 10s bash -c "while ! [ -e \"$partition\" ]; do echo -n .; sleep 0.2; done" || {
+timeout 1s bash -c "while ! [ -e \"$partition\" ]; do echo -n .; sleep 0.2; done" || {
   echo "$partition does not exist"
+  exit 1
 }
 echo " $partition exists."
 
@@ -77,5 +90,5 @@ echo "Formatting with fat32"
 sudo mkdosfs -F 32 -I "$partition"
 
 echo "setting flags"
-sudo parted -s "$stick" set "$part_num" boot on
-sudo parted -s "$stick" set "$part_num" lba on
+sudo parted -s "$stick" set "$part_num" boot on || true
+sudo parted -s "$stick" set "$part_num" lba on || true

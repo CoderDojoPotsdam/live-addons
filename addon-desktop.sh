@@ -9,6 +9,8 @@ cd "`dirname \"$0\"`"
 )
 
 sudo live-addon-maker/make-addon.sh ./link.iso z-desktop.squashfs -H \
+         -a 'partition-sticks.sh' '/opt/' \
+         -a 'files/opt/' '/opt/' \
          -a 'files/applications/' '/home/ubuntu/Desktop/' \
          -a 'files/applications/' '/usr/share/applications/' \
          -a 'files/icons' '/opt/icons' \
