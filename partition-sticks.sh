@@ -1,4 +1,6 @@
 #!/bin/bash
+# We handle partitions here. Best to set -e to not cause harm.
+set -e
 
 stick="$1"
 size="4G"
@@ -39,3 +41,41 @@ else
 fi
 start_sector="$(((io_size + alignment_offset) / physical_block_size))"
 echo "start_sector = $start_sector"
+
+echo "Printing partitions:"
+sudo parted -s "$stick" print
+partitions="`sudo parted -s \"$stick\" print|awk '/^ / {print $1}'`"
+echo "partitions: $partitions"
+
+echo "Deleting partitions"
+for i in $partitions; do
+  sudo parted -s "$stick" rm "$i"
+done
+
+echo "Creating partition:"
+sudo parted -s "$stick" mkpart primary "$start_sector"s "$size"
+
+echo "Rereading the partition table"
+echo "see http://serverfault.com/a/36047"
+sudo partprobe
+
+part_num="1"
+partition="$stick$part_num"
+echo "Waiting for partition to appear"
+timeout 10s bash -c "while ! [ -e \"$partition\" ]; do echo -n .; sleep 0.2; done" || {
+  echo "$partition does not exist"
+}
+echo " $partition exists."
+
+echo "Formatting the partition"
+if [ -z "`which mkdosfs`" ]; then
+  sudo apt-get -y install dosfstools
+fi
+
+echo "Partition: $partition"
+echo "Formatting with fat32"
+sudo mkdosfs -F 32 -I "$partition"
+
+echo "setting flags"
+sudo parted -s "$stick" set "$part_num" boot on
+sudo parted -s "$stick" set "$part_num" lba on
