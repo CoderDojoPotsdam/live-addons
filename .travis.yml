@@ -20,5 +20,6 @@ deploy:
       secure: "j5Cc89q9xt8un9KU5XcR5UzcrRBOibKO1ZiHyI6AgAJSpN/u90YP8zPNZduF1Eh6k9FUQz9UvGadaGxBkw6CMnMMVF5Hy0J3sIjwI5ulnKSaJoo0sqZDiWJABgJDmtgnSdWBIDnQX3sYUki3vPrujbI2nCfzRPMeju/vszBhW0BgxEBf+T4jmJiyB0B0kFTPaRlkEM1PX1dYp7LmlWmWsPo7accd0DphWDeJiPZjph/80SDvDlY6WqLkjpi6hJtGIfxpGOhjbP+eBl2rXtz+QrKMf5GOmVeRKJXNkV7UsrOAIo0ot5Uy0Bk4SyXulo1rMFxOGz3IirQ45snvjHiJk8IZzmEoa8P55k3q6oTSyaAKDpiLoOKP8jsJajzaGKPmyRDA8W809mE0YsuG8StaWEohknoQovPZTgMMX/1+VAHcl2NEmNcVyyAmdI10N17aTwtVjX3bM+eV1mot19nkPUrK4ZuiobGBTdJvWKhil0IpTwq0L1hPU+ICZKe5S52m8t98pUx1NSbRofIZvD6MQ6YVDxcIzIZHgzjWyYduw1Oevh+M+cn5bMbRf6ur/9XDAx5QSW764OhjjBSJjlM93i2jzdLVjSk+ADhHH+KkYH90rxZn642IIVG8iyu5Ryxs97nAxvrOQ2bLFF1hWhhs1Ud9Tlv3Ie7Jk7FLnZRVN+0="
     file_glob: true # http://stackoverflow.com/a/28579635/1320237
     file: 
-    - "/home/travis/${iso_file}"
+    # Do not upload the iso file: it is too big! 
+    #- "/home/travis/${iso_file}"
     - "/home/travis/z-coderdojo.squashfs"
