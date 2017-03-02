@@ -2,7 +2,7 @@
 
 cd "`dirname \"$0\"`"
 
-modules="startup http-server lightbot blockly-games snap opentechschool-javascript-beginners opentechschool-python-beginners"
+modules="startup http-server lightbot blockly-games snap"
 install_url="https://raw.githubusercontent.com/cdpoffline/offline-material/master/bin/download_and_install.sh"
 
 sudo live-addon-maker/make-addon.sh ./link.iso z-offline-server.squashfs \
