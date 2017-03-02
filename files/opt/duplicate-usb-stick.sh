@@ -69,5 +69,3 @@ sync
 echo "Copied all contents successfully!"
 echo "You can now remove the device $device."
 echo "$description"
-echo -n "Press ENTER to exit"
-read 
