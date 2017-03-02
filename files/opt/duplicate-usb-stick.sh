@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+device="$1"
+source_device="$2"
+
 cd "`dirname \"$0\"`"
 
 list_devices() {
@@ -13,7 +16,6 @@ new_devices_attached() {
 
 echo "Hello, I am a friendly program which likes to duplicate"
 echo "this operating system to other USB devices!"
-device="$1"
 if [ -z "$device" ]; then
   echo "Please attach a USB device to this computer!"
 
@@ -53,18 +55,73 @@ if [ -z "$description" ]; then
   exit 1
 fi
 
-./partition-sticks.sh "$device"
-
-dir="/tmp/usb-stick"
+if [ -z "$source_device" ]; then
+  source_device="/dev/sda"
+fi
 partition="${device}1"
 
-mkdir -p "$dir"
-sudo mount "$partition" "$dir"
+end="`sudo parted -s /dev/sdb 'unit b print' | awk '/^ / {print $3}'`"
+bytes="${end%B}"
+bytes="${bytes%b}"
+start="`sudo parted -s /dev/sdb 'unit b print' | awk '/^ / {print $2}'`"
 
-sudo cp -v -r -T "/cdrom/" "$dir"
+echo "Getting partitions of $device"
+partitions="`sudo parted -s \"$device\" print|awk '/^ / {print $1}'`"
+echo "Deleting partitions $partitions" 
+for i in $partitions; do
+  sudo umount "$device$i" || true
+  sudo parted -s "$device" rm "$i"
+done
 
-sudo umount "$dir"
+echo "Creating a new partition table"
+
+sudo parted -s "$device" mklabel msdos
+
+part_num="1"
+partition="$device$part_num"
+
+sudo partprobe || true
+
+echo "Waiting for partition to disappear"
+timeout 1s bash -c "while [ -e \"$partition\" ]; do echo -n .; sleep 0.2; done" || {
+  echo "$partition exists"
+  exit 1
+}
+echo " $partition vanished."
+
+
+echo "Creating partition:"
+sudo parted -s "$device" mkpart primary "$start" "$end" || true
+
+echo "Rereading the partition table"
+echo "see http://serverfault.com/a/36047"
+sudo partprobe || true
+
+echo "Waiting for partition to appear"
+timeout 1s bash -c "while ! [ -e \"$partition\" ]; do echo -n .; sleep 0.2; done" || {
+  echo "$partition does not exist"
+  exit 1
+}
+echo " $partition exists."
+
+echo "Bytes to copy: $bytes"
+
+steps=100
+start=0
+sec_start="`date +%s`"
+for i in `seq 1 100`; do
+  stop=$((bytes * i / steps))
+  count="$((stop - start))"
+  sudo dd if="$source_device" of="$device" count=$count seek=$start skip=$start oflag=seek_bytes iflag=skip_bytes,count_bytes
+  start=$stop
+  sec_now="`date +%s`"
+  sec_remaining=$(( (sec_now - sec_start) * ( 100 - i) / i  ))
+  echo "$i% - $((sec_remaining / 60))m $(( sec_remaining % 60 ))s remaining"
+done
+
+echo "Syncing..."
 sync
+sudo partprobe || true
 
 echo "Copied all contents successfully!"
 echo "You can now remove the device $device."
