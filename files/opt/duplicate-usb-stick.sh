@@ -55,7 +55,7 @@ fi
 
 ./partition-sticks.sh "$device"
 
-dir="/tmp/us-stick"
+dir="/tmp/usb-stick"
 partition="${device}1"
 
 mkdir -p "$dir"
