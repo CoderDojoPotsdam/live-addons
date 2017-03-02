@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Duplicate USB-Stick
+Comment=Dupliziere dieses Betriebsystem auf andere USB-Sticks
+Exec=/opt/duplicate-usb-stick.sh
+Icon=/opt/icons/CopyOSToUSB.png
+Terminal=true
+Type=Application
+Categories=Application;System;
