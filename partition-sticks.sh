@@ -33,7 +33,7 @@ echo "optimal_io_size = $optimal_io_size"
 echo "minimum_io_size = $minimum_io_size"
 echo "alignment_offset = $alignment_offset"
 echo "physical_block_size = $physical_block_size"
-if [ "$minimum_io_size" > "$optimal_io_size" ]; then
+if [ "$minimum_io_size" -gt "$optimal_io_size" ]; then
   echo "minimum io size is greater than the optimal io size"
   io_size="$minimum_io_size"
 else
