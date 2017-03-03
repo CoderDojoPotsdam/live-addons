@@ -10,7 +10,7 @@ You can download from the [releases][releases]
 
 - the file [z-coderdojo.squashfs](https://niccokunzmann.github.io/download_latest/z-coderdojo.squashfs) and put it into the 
   folder `casper` next to the `filesystem.squashfs` file.
-- the [ready made iso image](https://niccokunzmann.github.io/download_latest/ubuntu-16.10-coderdojo-amd64.iso).
+- the [ready made iso image](https://owncloud.quelltext.eu/index.php/s/skrhc42PMTJXRH5).
 
 ## How It Works
 
