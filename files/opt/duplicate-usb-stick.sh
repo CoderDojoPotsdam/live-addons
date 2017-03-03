@@ -60,10 +60,10 @@ if [ -z "$source_device" ]; then
 fi
 partition="${device}1"
 
-end="`sudo parted -s /dev/sdb 'unit b print' | awk '/^ / {print $3}'`"
+end="`sudo parted -s \"$source_device\" 'unit b print' | awk '/^ / {print $3}' | head -n 1`"
 bytes="${end%B}"
 bytes="${bytes%b}"
-start="`sudo parted -s /dev/sdb 'unit b print' | awk '/^ / {print $2}'`"
+start="`sudo parted -s \"$source_device\" 'unit b print' | awk '/^ / {print $2}' | head -n 1`"
 
 echo "Getting partitions of $device"
 partitions="`sudo parted -s \"$device\" print|awk '/^ / {print $1}'`"
